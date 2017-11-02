@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>All books</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+    <div>
+        <table>
+            <thead>
+                <th data-sortable="true">ID</th>
+                <th data-sortable="true">Author</th>
+                <th data-sortable="true">Title</th>
+                <th data-sortable="true">ISBN</th>
+                <th data-sortable="true">Publication</th>
+                <th data-sortable="true">Print Date</th>
+            </thead>
+            <tbody>
+                <tr data-th-each="book : ${booksList}">
+                    <td data-th-text="${book.getBookId()}"></td>
+                    <td data-th-text="${book.getBookAuthor()}"></td>
+                    <td data-th-text="${book.getBookTitle()}"></td>
+                    <td data-th-text="${book.getIsbn()}"></td>
+                    <td data-th-text="${book.getPublication()}"></td>
+                    <td data-th-text="${book.getPrintDate()}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
