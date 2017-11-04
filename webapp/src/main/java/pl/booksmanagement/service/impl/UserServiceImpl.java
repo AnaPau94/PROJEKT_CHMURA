@@ -56,8 +56,25 @@ public class UserServiceImpl implements UserService {
         u.setPassword(passwordEncoder.encode(u.getPassword()));
 
         userRepository.save(u);
-        
+
         return true;
+    }
+
+    @Override
+    public User findUserByUsername(String username) {
+        if (StringUtils.isBlank(username)) {
+            return null;
+        }
+
+        return userRepository.findByUsername(username);
+    }
+
+    @Override
+    public User findUserById(Long id) {
+        if (id == null) {
+            return null;
+        }
+        return userRepository.findById(id);
     }
 
 
