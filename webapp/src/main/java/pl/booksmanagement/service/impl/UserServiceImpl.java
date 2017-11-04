@@ -1,6 +1,7 @@
 package pl.booksmanagement.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -38,6 +39,25 @@ public class UserServiceImpl implements UserService {
 
         log.info("Save user {}", u);
         userRepository.save(u);
+    }
+
+    @Override
+    public boolean createNewUser(User u) {
+        if (StringUtils.isBlank(u.getUsername()) || StringUtils.isBlank(u.getPassword())) {
+            log.warn("User creation failed. Username or password is empty. {}", u);
+            return false;
+        }
+        if (!isUserLoginAvailable(u.getUsername())) {
+            log.warn("Such username is already exists. {}", u);
+            return false;
+        }
+
+        log.info("Create new user with password={}", u.getPassword());
+        u.setPassword(passwordEncoder.encode(u.getPassword()));
+
+        userRepository.save(u);
+        
+        return true;
     }
 
 
