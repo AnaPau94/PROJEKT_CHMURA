@@ -1,0 +1,54 @@
+package pl.booksmanagement.service.impl;
+
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+import pl.booksmanagement.model.User;
+import pl.booksmanagement.repository.UserRepository;
+import pl.booksmanagement.service.UserService;
+
+@Service
+@Slf4j
+public class UserServiceImpl implements UserService {
+
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+
+    final String lexicon = "ABCDEFGHIJKLMNOPQRSTUVWXYZ12345674890";
+    final java.util.Random rand = new java.util.Random();
+
+    @Override
+    public boolean isUserLoginAvailable(String login) {
+        User user = userRepository.findByUsername(login);
+        return user == null;
+    }
+
+    @Override
+    public void createExampleUser() {
+        User u = new User();
+        u.setEmail("a@a.pl");
+        u.setUsername(randomIdentifier());
+        String password = randomIdentifier();
+        log.info("Password={}", password);
+        u.setPassword(passwordEncoder.encode(password));
+
+        log.info("Save user {}", u);
+        userRepository.save(u);
+    }
+
+
+    private String randomIdentifier() {
+        StringBuilder builder = new StringBuilder();
+        while (builder.toString().length() == 0) {
+            int length = rand.nextInt(5) + 5;
+            for (int i = 0; i < length; i++) {
+                builder.append(lexicon.charAt(rand.nextInt(lexicon.length())));
+            }
+        }
+        return builder.toString();
+    }
+}
