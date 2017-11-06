@@ -13,7 +13,7 @@ import pl.booksmanagement.service.UserService;
 @Controller
 public class HomeController {
     @Autowired
-    BookService bookService;
+    private BookService bookService;
 
     @Autowired
     private UserService userService;
