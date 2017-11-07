@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -24,7 +25,7 @@ public class User {
             joinColumns = @JoinColumn( name="id"),
             inverseJoinColumns = @JoinColumn( name="book_id")
     )
-    private List<Book> ownedBooks ;
+    private List<Book> ownedBooks = new ArrayList<>();
 
 
     @OneToMany
@@ -33,5 +34,5 @@ public class User {
             joinColumns = @JoinColumn( name="id"),
             inverseJoinColumns = @JoinColumn( name="book_id")
     )
-    private List<Book>  booksToBuy;
+    private List<Book> booksToBuy = new ArrayList<>();
 }

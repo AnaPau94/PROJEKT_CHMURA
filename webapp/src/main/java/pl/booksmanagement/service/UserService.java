@@ -8,4 +8,5 @@ public interface UserService {
     boolean createNewUser(User u);
     User findUserByUsername(String username);
     User findUserById(Long id);
+    void saveUser(User u);
 }
