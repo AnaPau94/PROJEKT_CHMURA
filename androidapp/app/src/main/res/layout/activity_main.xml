@@ -10,8 +10,11 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="booksmanagement.androidapp.MainActivity">
 
-    <TextView
+    <Button
+        android:id="@+id/addBookMenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:text="Add book"
+        android:onClick="openAddBookActivity"/>
+
 </RelativeLayout>
