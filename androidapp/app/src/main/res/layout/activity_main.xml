@@ -11,12 +11,6 @@
     tools:context="booksmanagement.androidapp.MainActivity">
 
     <Button
-        android:id="@+id/addBookMenu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!" />
-
-    <Button
         android:id="@+id/button_login_activity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -24,6 +18,11 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="192dp"
         android:text="Login Activity" />
+
+    <Button
+        android:id="@+id/addBookMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="Add book"
         android:onClick="openAddBookActivity"/>
 

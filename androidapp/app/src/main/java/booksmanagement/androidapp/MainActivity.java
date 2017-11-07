@@ -11,15 +11,6 @@ import android.view.View;
 import android.widget.Button;
 
 public class MainActivity extends Activity  {
-import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.web.client.RestTemplate;
-
-import booksmanagement.androidapp.model.Book;
-
-public class MainActivity extends AppCompatActivity {
-    private final static String addBookURL = "http://192.168.43.60:8080/api/book/create";
-    private RestTemplate restTemplate;
 
     private Button buttonLoginActivity;
     @Override
@@ -39,16 +30,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //Dodanie książki
-        restTemplate = new RestTemplate();
-        restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-
-        Book book = new Book();
-        book.setBookAuthor("Henryk Sienkiewicz");
-        book.setBookTitle("From Mobile");
-        book.setIsbn("1234567891234");
-//        restTemplate.postForObject(addBookURL, book, Book.class);
     }
+
     public void openAddBookActivity(View view) {
         Intent myIntent = new Intent(MainActivity.this,
                 AddBookActivity.class);
