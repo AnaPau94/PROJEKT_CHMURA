@@ -4,7 +4,7 @@ import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         book.setBookAuthor("Henryk Sienkiewicz");
         book.setBookTitle("From Mobile");
         book.setIsbn("1234567891234");
-        restTemplate.postForObject(addBookURL, book, Book.class);
+        HttpEntity<Book> request = new HttpEntity<>(book);
+        restTemplate.postForObject(addBookURL, request, Book.class);
     }
 }
