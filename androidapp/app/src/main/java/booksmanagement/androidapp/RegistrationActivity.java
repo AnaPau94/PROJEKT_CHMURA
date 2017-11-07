@@ -15,6 +15,10 @@ public class RegistrationActivity extends AppCompatActivity {
     EditText editTextRegistrationPassword2;
     Button buttonRegistrationCreateAcoount;
 
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

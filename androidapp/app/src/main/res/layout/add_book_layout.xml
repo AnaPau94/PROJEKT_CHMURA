@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1"
+    android:padding="30dp">
+
+    <TextView
+        android:id="@+id/authorText"
+        android:layout_width="77dp"
+        android:layout_height="wrap_content"
+        android:text="Title" />
+
+    <EditText
+        android:id="@+id/author"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="none" />
+
+    <TextView
+        android:id="@+id/titleText"
+        android:layout_width="77dp"
+        android:layout_height="wrap_content"
+        android:text="Author" />
+
+    <EditText
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="none" />
+
+    <TextView
+        android:id="@+id/isbnText"
+        android:layout_width="77dp"
+        android:layout_height="wrap_content"
+        android:text="ISBN" />
+
+    <EditText
+        android:id="@+id/isbn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="none" />
+
+    <TextView
+        android:id="@+id/publicationText"
+        android:layout_width="77dp"
+        android:layout_height="wrap_content"
+        android:text="Publication" />
+
+    <EditText
+        android:id="@+id/publication"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="none" />
+
+    <TextView
+        android:id="@+id/printDateText"
+        android:layout_width="77dp"
+        android:layout_height="wrap_content"
+        android:text="Print date" />
+
+    <EditText
+        android:id="@+id/printDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="none" />
+
+    <Button
+        android:id="@+id/addBook"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add book" />
+
+
+</LinearLayout>

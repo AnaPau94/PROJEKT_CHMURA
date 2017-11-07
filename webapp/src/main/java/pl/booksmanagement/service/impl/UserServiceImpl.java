@@ -77,6 +77,15 @@ public class UserServiceImpl implements UserService {
         return userRepository.findById(id);
     }
 
+    @Override
+    public void saveUser(User u) {
+        if (u == null) {
+            return;
+        }
+
+        userRepository.save(u);
+    }
+
 
     private String randomIdentifier() {
         StringBuilder builder = new StringBuilder();
