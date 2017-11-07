@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -14,10 +15,11 @@ import org.springframework.web.client.RestTemplate;
 import booksmanagement.androidapp.model.Book;
 
 public class AddBookActivity extends AppCompatActivity {
-    private final static String addBookURL = "http://192.168.43.60:8080/api/book/create";
+    private final static String addOwnedBookURL = "http://192.168.56.1:8080/api/book/create?u=1";
+    private final static String addBookToSearchURL = "http://192.168.56.1:8080/api/book/create?u=2";
     private RestTemplate restTemplate;
     private EditText title, author, isbn, publication, printDate;
-    private Button addBookButton;
+    private Button addOwnedBookButton, addBookToSeacrhButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +35,17 @@ public class AddBookActivity extends AppCompatActivity {
         publication = (EditText) findViewById(R.id.publication);
         printDate = (EditText) findViewById(R.id.printDate);
 
-        addBookButton  = (Button) findViewById(R.id.addBook);
-        addBookButton.setOnClickListener(new View.OnClickListener() {
+        addOwnedBookButton  = (Button) findViewById(R.id.addOwnedBook);
+        addOwnedBookButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                addBook();
+                addBook(v);
+            }
+        });
+
+        addBookToSeacrhButton  = (Button) findViewById(R.id.addBookToSearch);
+        addBookToSeacrhButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                addBook(v);
             }
         });
 
@@ -44,7 +53,7 @@ public class AddBookActivity extends AppCompatActivity {
         restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
     }
 
-    public void addBook() {
+    public void addBook(View view) {
         Book book = new Book();
         book.setBookAuthor(author.getText().toString());
         book.setBookTitle(title.getText().toString());
@@ -53,6 +62,8 @@ public class AddBookActivity extends AppCompatActivity {
         book.setPrintDate(printDate.getText().toString());
 
         HttpEntity<Book> request = new HttpEntity<>(book);
-        restTemplate.postForObject(addBookURL, request, Book.class);
+
+        restTemplate.postForObject(view.getId() == R.id.addOwnedBook ? addOwnedBookURL : addBookToSearchURL, request, Book.class);
+        Toast.makeText(getApplicationContext(), "Book added", Toast.LENGTH_SHORT).show();
     }
 }

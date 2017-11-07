@@ -71,10 +71,16 @@
         android:inputType="none" />
 
     <Button
-        android:id="@+id/addBook"
+        android:id="@+id/addOwnedBook"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add book" />
+        android:text="Add owned book" />
+
+    <Button
+        android:id="@+id/addBookToSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add book to search" />
 
 
 </LinearLayout>
