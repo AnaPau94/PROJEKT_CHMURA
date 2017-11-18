@@ -3,15 +3,20 @@ package pl.booksmanagement.service.impl;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.booksmanagement.model.User;
 import pl.booksmanagement.repository.UserRepository;
 import pl.booksmanagement.service.UserService;
 
-@Service
+import java.security.Principal;
+
+@Service("userDetailsService")
 @Slf4j
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
@@ -31,11 +36,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public void createExampleUser() {
         User u = new User();
-        u.setEmail("a@a.pl");
         u.setUsername(randomIdentifier());
         String password = randomIdentifier();
         log.info("Password={}", password);
         u.setPassword(passwordEncoder.encode(password));
+        u.setEnabled(true);
 
         log.info("Save user {}", u);
         userRepository.save(u);
@@ -54,6 +59,7 @@ public class UserServiceImpl implements UserService {
 
         log.info("Create new user with password={}", u.getPassword());
         u.setPassword(passwordEncoder.encode(u.getPassword()));
+        u.setEnabled(true);
 
         userRepository.save(u);
 
@@ -96,5 +102,16 @@ public class UserServiceImpl implements UserService {
             }
         }
         return builder.toString();
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userRepository.findByUsername(username);
+    }
+
+    @Override
+    public Long getAuthUserId(Principal principal) {
+        principal.getName();
+        return 0L;
     }
 }

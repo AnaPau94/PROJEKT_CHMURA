@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 import pl.booksmanagement.model.User;
 import pl.booksmanagement.service.UserService;
 
+import java.security.Principal;
+
 @RestController
 @RequestMapping("/api/user")
 public class UserRestController {
@@ -36,4 +38,12 @@ public class UserRestController {
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+
+    @RequestMapping(value = "/me")
+    public Principal user(Principal principal) {
+//        ((OAuth2Authentication) principal).getCredentials().get
+        return principal;
+    }
+
 }

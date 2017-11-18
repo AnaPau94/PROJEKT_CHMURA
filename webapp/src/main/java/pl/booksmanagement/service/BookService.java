@@ -11,5 +11,8 @@ public interface BookService {
     Book findByBookAuthor(String author);
     List<Book> findAll();
     Book save(Book book);
-    void saveBookForUser(String userId, Book book) throws UserNotFoundException;
+    void addOwnedBookForUser(String userId, Book book) throws UserNotFoundException;
+    void addBuyBookForUser(String userId, Book book) throws UserNotFoundException;
+    List<Book> getOwnedUserBooks(String userId) throws UserNotFoundException;
+    List<Book> getBuyUserBooks(String userId) throws UserNotFoundException;
 }

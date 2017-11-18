@@ -11,11 +11,13 @@ import pl.booksmanagement.repository.BookRepository;
 import pl.booksmanagement.service.BookService;
 import pl.booksmanagement.service.UserService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @Slf4j
 public class BookServiceImpl implements BookService {
+
     @Autowired
     BookRepository repository;
 
@@ -39,7 +41,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public void saveBookForUser(String userId, Book book) throws UserNotFoundException {
+    public void addOwnedBookForUser(String userId, Book book) throws UserNotFoundException {
         if (book.getBookId() != null) {
            log.warn("add already exists book");
            return;
@@ -54,9 +56,48 @@ public class BookServiceImpl implements BookService {
             throw new UserNotFoundException("User with id=" + userId + " not found!");
         }
 
+
+
         Book savedBook = repository.save(book);
-        user.getOwnedBooks().add(savedBook);
+//        user.getOwnedBooks().add(savedBook);
         userService.saveUser(user);
+    }
+
+    @Override
+    public void addBuyBookForUser(String userId, Book book) throws UserNotFoundException {
+
+    }
+
+    @Override
+    public List<Book> getOwnedUserBooks(String userId) throws UserNotFoundException {
+
+
+        if (StringUtils.isBlank(userId) || !StringUtils.isNumeric(userId)) {
+            throw new UserNotFoundException("User id=" + userId + " cannot be null or has incorrect type!");
+        }
+
+        User user = userService.findUserById(Long.valueOf(userId));
+        if (user == null) {
+            throw new UserNotFoundException("User with id=" + userId + " not found!");
+        }
+
+        return new ArrayList<>();
+//        return user.getOwnedBooks();
+    }
+
+    @Override
+    public List<Book> getBuyUserBooks(String userId) throws UserNotFoundException {
+        if (StringUtils.isBlank(userId) || !StringUtils.isNumeric(userId)) {
+            throw new UserNotFoundException("User id=" + userId + " cannot be null or has incorrect type!");
+        }
+
+        User user = userService.findUserById(Long.valueOf(userId));
+        if (user == null) {
+            throw new UserNotFoundException("User with id=" + userId + " not found!");
+        }
+
+        return new ArrayList<>();
+//        return user.getBooksToBuy();
     }
 
 

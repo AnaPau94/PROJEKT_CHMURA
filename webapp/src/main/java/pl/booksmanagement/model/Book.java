@@ -25,4 +25,9 @@ public class Book {
     @Size(max=50)
     private String publication;
     private String printDate;
+
+    @Enumerated(EnumType.STRING)
+    private BookType bookType;
+
+    private String userId;
 }
