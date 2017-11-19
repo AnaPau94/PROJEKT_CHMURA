@@ -4,8 +4,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pl.booksmanagement.exception.UserNotFoundException;
 import pl.booksmanagement.model.Book;
+import pl.booksmanagement.model.BookType;
 import pl.booksmanagement.model.User;
 import pl.booksmanagement.repository.BookRepository;
 import pl.booksmanagement.service.BookService;
@@ -16,6 +18,7 @@ import java.util.List;
 
 @Service
 @Slf4j
+@Transactional
 public class BookServiceImpl implements BookService {
 
     @Autowired
@@ -33,71 +36,53 @@ public class BookServiceImpl implements BookService {
     public Book findByBookAuthor(String author) {
         return repository.findByBookAuthor(author);
     }
+
     public List<Book> findAll() {
         return repository.findAll();
     }
+
+    @Override
+    public List<Book> findAllUserBooks(Long userId) {
+        return repository.findByUserId(userId);
+    }
+
     public Book save(Book book) {
         return repository.save(book);
     }
 
     @Override
-    public void addOwnedBookForUser(String userId, Book book) throws UserNotFoundException {
+    public void addOwnedBookForUser(Long userId, Book book) {
         if (book.getBookId() != null) {
            log.warn("add already exists book");
            return;
         }
 
-        if (StringUtils.isBlank(userId)) {
-            throw new UserNotFoundException("User id cannot be null!");
-        }
-
-        User user = userService.findUserById(Long.valueOf(userId));
-        if (user == null) {
-            throw new UserNotFoundException("User with id=" + userId + " not found!");
-        }
-
-
-
-        Book savedBook = repository.save(book);
-//        user.getOwnedBooks().add(savedBook);
-        userService.saveUser(user);
-    }
-
-    @Override
-    public void addBuyBookForUser(String userId, Book book) throws UserNotFoundException {
+        book.setType(BookType.OWNED);
+        book.setUserId(userId);
+        repository.save(book);
 
     }
 
     @Override
-    public List<Book> getOwnedUserBooks(String userId) throws UserNotFoundException {
-
-
-        if (StringUtils.isBlank(userId) || !StringUtils.isNumeric(userId)) {
-            throw new UserNotFoundException("User id=" + userId + " cannot be null or has incorrect type!");
+    public void addBuyBookForUser(Long userId, Book book) {
+        if (book.getBookId() != null) {
+            log.warn("add already exists book");
+            return;
         }
 
-        User user = userService.findUserById(Long.valueOf(userId));
-        if (user == null) {
-            throw new UserNotFoundException("User with id=" + userId + " not found!");
-        }
-
-        return new ArrayList<>();
-//        return user.getOwnedBooks();
+        book.setType(BookType.BUY);
+        book.setUserId(userId);
+        repository.save(book);
     }
 
     @Override
-    public List<Book> getBuyUserBooks(String userId) throws UserNotFoundException {
-        if (StringUtils.isBlank(userId) || !StringUtils.isNumeric(userId)) {
-            throw new UserNotFoundException("User id=" + userId + " cannot be null or has incorrect type!");
-        }
+    public List<Book> getOwnedUserBooks(Long userId) {
+        return repository.findByUserIdAndType(userId, BookType.OWNED);
+    }
 
-        User user = userService.findUserById(Long.valueOf(userId));
-        if (user == null) {
-            throw new UserNotFoundException("User with id=" + userId + " not found!");
-        }
-
-        return new ArrayList<>();
-//        return user.getBooksToBuy();
+    @Override
+    public List<Book> getBuyUserBooks(Long userId) {
+        return repository.findByUserIdAndType(userId, BookType.BUY);
     }
 
 

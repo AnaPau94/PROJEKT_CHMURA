@@ -10,9 +10,10 @@ public interface BookService {
     Book findByIsbn(String isbn);
     Book findByBookAuthor(String author);
     List<Book> findAll();
+    List<Book> findAllUserBooks(Long userId);
     Book save(Book book);
-    void addOwnedBookForUser(String userId, Book book) throws UserNotFoundException;
-    void addBuyBookForUser(String userId, Book book) throws UserNotFoundException;
-    List<Book> getOwnedUserBooks(String userId) throws UserNotFoundException;
-    List<Book> getBuyUserBooks(String userId) throws UserNotFoundException;
+    void addOwnedBookForUser(Long userId, Book book);
+    void addBuyBookForUser(Long userId, Book book);
+    List<Book> getOwnedUserBooks(Long userId);
+    List<Book> getBuyUserBooks(Long userId);
 }

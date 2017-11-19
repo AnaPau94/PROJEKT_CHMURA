@@ -1,5 +1,6 @@
 package pl.booksmanagement.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -9,6 +10,7 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "books")
 @Data
+@JsonIgnoreProperties("userId")
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +29,7 @@ public class Book {
     private String printDate;
 
     @Enumerated(EnumType.STRING)
-    private BookType bookType;
+    private BookType type;
 
-    private String userId;
+    private Long userId;
 }

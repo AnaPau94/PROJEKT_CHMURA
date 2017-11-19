@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.stereotype.Service;
 import pl.booksmanagement.model.User;
 import pl.booksmanagement.repository.UserRepository;
@@ -111,7 +112,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public Long getAuthUserId(Principal principal) {
-        principal.getName();
-        return 0L;
+        if (principal == null) {
+            return null;
+        }
+        return ((User) ((OAuth2Authentication) principal).getPrincipal()).getId();
     }
 }
