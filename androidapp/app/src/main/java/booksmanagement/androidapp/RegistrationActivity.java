@@ -72,7 +72,7 @@ public class RegistrationActivity extends AppCompatActivity {
         switch (httpStatus ) {
             case HttpURLConnection.HTTP_OK:
                 Toast.makeText(this, getResources().getString(R.string.congratulations), Toast.LENGTH_SHORT).show();
-                getToken(user);
+                //getToken(user);
                 startWelcomeActivity();
                 break;
             case HttpURLConnection.HTTP_CONFLICT:
