@@ -3,4 +3,7 @@
     <string name="username_is_taken">That username is taken. Try another.</string>
     <string name="undefined_error">Undefined error please try again later.</string>
     <string name="congratulations">You just created Your account!</string>
+    <string name="url_get_token_part_1"><![CDATA[https://chmuraksiazki.herokuapp.com/oauth/token?grant_type=password&username=]]></string>
+    <string name="url_get_token_part_2"><![CDATA[&password=]]></string>
+    <string name="url_create_user"><![CDATA[https://chmuraksiazki.herokuapp.com/api/user/create]]></string>
 </resources>
