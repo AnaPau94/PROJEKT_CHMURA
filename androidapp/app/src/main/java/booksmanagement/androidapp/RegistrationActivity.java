@@ -1,6 +1,5 @@
 package booksmanagement.androidapp;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -39,8 +38,6 @@ public class RegistrationActivity extends AppCompatActivity {
                 if (checkAllFields()) {
                     //TODO Dokończyć rejestracje nowego usera. Przesłanie obiektu usera do serwera.
                     new User(editTextRegistrationLogin.getText().toString(), editTextRegistrationPassword.getText().toString());    //Tworzenie użytkownika
-                    Intent intent = new Intent(RegistrationActivity.this, WelcomeActivity.class);
-                    startActivity(intent);
                 }
             }
         });
@@ -77,10 +74,7 @@ public class RegistrationActivity extends AppCompatActivity {
     private boolean checkPassword2Field() {
         boolean out = false;
         if (editTextRegistrationPassword2.getText().toString().length() > 0) {
-            String pass1 = editTextRegistrationPassword.getText().toString();
-            String pass2 = editTextRegistrationPassword2.getText().toString();
-            if (pass1.equals(pass2)) {
-            //if (editTextRegistrationPassword.getText().toString().equals(editTextRegistrationPassword2.getText().toString())) {
+            if (editTextRegistrationPassword.getText().toString().equals(editTextRegistrationPassword2.getText().toString().length())) {
                 out = true;
             }
         }

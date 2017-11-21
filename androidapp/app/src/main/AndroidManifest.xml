@@ -17,14 +17,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AddBookActivity" />
+        <activity android:name=".AddBookActivity">
+        </activity>
         <activity android:name=".LoginActivity" />
-        <activity android:name=".RegistrationActivity" />
-        <activity android:name=".WelcomeActivity" />
-        <activity android:name=".MenuActivity" />
-        <activity android:name=".AddBookMenuActivity" />
-        <activity android:name=".SearchByISBNActivity" />
-        <activity android:name=".ShopChoosingActivity"></activity>
+        <activity android:name=".RegistrationActivity"></activity>
     </application>
 
 </manifest>

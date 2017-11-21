@@ -9,49 +9,32 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 
 public class MainActivity extends Activity  {
 
-    EditText editTextLoginLogin;
-    EditText editTextLoginPassword;
-    Button buttonLoginCreateAccount;
-    Button buttonLoginSignIn;
-
+    private Button buttonLoginActivity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_main);
 
-        initializeAllElements();
-    }
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
 
-    private void initializeAllElements() {
-        editTextLoginLogin = (EditText) findViewById(R.id.editText_login_login);
-        editTextLoginPassword = (EditText) findViewById(R.id.editText_login_password);
-        buttonLoginCreateAccount = (Button) findViewById(R.id.button_login_create_account);
-        buttonLoginCreateAccount.setOnClickListener(new View.OnClickListener() {
+        buttonLoginActivity = (Button) findViewById(R.id.button_login_activity);
+        buttonLoginActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, RegistrationActivity.class);
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(intent);
             }
         });
-        buttonLoginSignIn = (Button) findViewById(R.id.button_sign_in);
-        buttonLoginSignIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signInMethod(editTextLoginLogin.getText().toString(), editTextLoginPassword.getText().toString());
-            }
-        });
+
     }
 
-    private void signInMethod(String login, String password) {
-        boolean isOk = true;
-
-        if (isOk) {
-            Intent intent = new Intent(MainActivity.this, WelcomeActivity.class);
-            startActivity(intent);
-        }
+    public void openAddBookActivity(View view) {
+        Intent myIntent = new Intent(MainActivity.this,
+                AddBookActivity.class);
+        startActivity(myIntent);
     }
 }
