@@ -1,23 +1,42 @@
 package booksmanagement.androidapp.model;
 
 public class User {
-    private final String login;
-    private final String password;
+    private Long id;
+    private String username;
+    private String password;
+    private boolean enabled;
 
-    public User(String login, String password) {
-        this.login = login;
+    public User() {}
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
         this.password = password;
     }
 
-    public String getLogin() {
-        return login;
+    public boolean isEnabled() {
+        return enabled;
     }
 
-    public boolean isPasswordEquals(String in) {
-        boolean out = false;
-        if (in.equals(password)) {
-            out = true;
-        }
-        return out;
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }

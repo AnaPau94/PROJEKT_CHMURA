@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">androidapp</string>
+    <string name="username_is_taken">That username is taken. Try another.</string>
+    <string name="undefined_error">Undefined error please try again later.</string>
+    <string name="congratulations">You just created Your account!</string>
 </resources>
