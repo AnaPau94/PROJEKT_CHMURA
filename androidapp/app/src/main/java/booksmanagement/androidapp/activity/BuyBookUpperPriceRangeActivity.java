@@ -1,22 +1,20 @@
 package booksmanagement.androidapp.activity;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
 import booksmanagement.androidapp.R;
 
-public class WelcomeActivity extends AppCompatActivity {
+public class BuyBookUpperPriceRangeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_welcome);
+        setContentView(R.layout.activity_buy_book_upper_price_range);
     }
 
-    public void openMenuActivity(View view) {
-        Intent myIntent = new Intent(WelcomeActivity.this, MenuActivity.class);
-        startActivity(myIntent);
+    public void onButtonOkClick(View view) {
+        //TODO dokończyć
     }
 }
