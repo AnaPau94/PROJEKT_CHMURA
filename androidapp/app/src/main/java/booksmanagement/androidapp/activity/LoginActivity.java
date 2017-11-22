@@ -1,4 +1,4 @@
-package booksmanagement.androidapp;
+package booksmanagement.androidapp.activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import booksmanagement.androidapp.R;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -17,7 +19,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_main);
 
         initializeAllElements();
     }
@@ -43,6 +45,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void signInMethod(String login, String password) {
-
+        Intent intent = new Intent(LoginActivity.this, WelcomeActivity.class);
+        startActivity(intent);
     }
 }

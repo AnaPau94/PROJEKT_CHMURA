@@ -1,5 +1,6 @@
-package booksmanagement.androidapp;
+package booksmanagement.androidapp.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,6 +28,7 @@ import java.io.DataOutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import booksmanagement.androidapp.R;
 import booksmanagement.androidapp.model.User;
 
 public class RegistrationActivity extends AppCompatActivity {
@@ -85,6 +87,7 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     private void getToken(User user) {
+        //TODO zrobić pobieranie, zapisywanie tokena
         String url = getResources().getString(R.string.url_get_token_part_1) + user.getUsername() + getResources().getString(R.string.url_get_token_part_2) + user.getPassword();
 
 
@@ -174,6 +177,8 @@ public class RegistrationActivity extends AppCompatActivity {
 
     private void startWelcomeActivity() {
         //TODO dokończyć przejście do powitalnego okna
+        Intent intent = new Intent(RegistrationActivity.this, WelcomeActivity.class);
+        startActivity(intent);
     }
 
     private boolean checkAllFields() {
