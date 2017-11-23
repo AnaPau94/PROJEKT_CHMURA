@@ -71,6 +71,8 @@ public class RegistrationActivity extends AppCompatActivity {
 
         int httpStatus = postCreateUser(user);
 
+        Log.i("httpStatus", Integer.toString(httpStatus));
+
         switch (httpStatus ) {
             case HttpURLConnection.HTTP_OK:
                 Toast.makeText(this, getResources().getString(R.string.congratulations), Toast.LENGTH_SHORT).show();

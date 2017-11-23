@@ -25,6 +25,9 @@ public class MenuActivity extends AppCompatActivity {
 
     public void showBooksToBuy(View view) {
         //TODO dokończyć
+        Intent myIntent = new Intent(MenuActivity.this,
+                BooksTabActivity.class);
+        startActivity(myIntent);
     }
 
     public void showBooksToRead(View view) {
