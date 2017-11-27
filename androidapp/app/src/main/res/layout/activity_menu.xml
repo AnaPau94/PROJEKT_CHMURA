@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="booksmanagement.androidapp.activity.MenuActivity">
+
+    <Button
+        android:id="@+id/button_add_book"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48dp"
+        android:onClick="openAddBookActivity"
+        android:text="Add book"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button_show_books_to_buy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:onClick="showBooksToBuy"
+        android:text="Show books to buy"
+        app:layout_constraintTop_toBottomOf="@+id/button_add_book" />
+
+    <Button
+        android:id="@+id/button_show_books_to_read"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:onClick="showBooksToRead"
+        android:text="Show books to read"
+        app:layout_constraintTop_toBottomOf="@+id/button_show_books_to_buy" />
+
+    <Button
+        android:id="@+id/button_show_read_books"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:onClick="showReadBooks"
+        android:text="Show read books"
+        app:layout_constraintTop_toBottomOf="@+id/button_show_books_to_read" />
+
+    <Button
+        android:id="@+id/button_show_all_my_books"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:onClick="showAllMyBooks"
+        android:text="Show all my books"
+        app:layout_constraintTop_toBottomOf="@+id/button_show_read_books" />
+
+    <Button
+        android:id="@+id/button_menu_buy_book"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:onClick="showBuyBookMenu"
+        android:text="Buy book"
+        app:layout_constraintTop_toBottomOf="@+id/button_show_all_my_books" />
+</android.support.constraint.ConstraintLayout>

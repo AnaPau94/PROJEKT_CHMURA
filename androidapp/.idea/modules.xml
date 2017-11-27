@@ -3,9 +3,11 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/androidapp.iml" filepath="$PROJECT_DIR$/androidapp.iml" />
-      <module fileurl="file://D:/Programs/PROJEKT_CHMURA/androidapp/androidapp.iml" filepath="D:/Programs/PROJEKT_CHMURA/androidapp/androidapp.iml" />
+      <module fileurl="file://D:\GOOD\PROJEKT_CHMURA\androidapp\androidapp.iml" filepath="D:\GOOD\PROJEKT_CHMURA\androidapp\androidapp.iml" />
+      <module fileurl="file://D:\Programs\PROJEKT_CHMURA\androidapp\androidapp.iml" filepath="D:\Programs\PROJEKT_CHMURA\androidapp\androidapp.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://D:/Programs/PROJEKT_CHMURA/androidapp/app/app.iml" filepath="D:/Programs/PROJEKT_CHMURA/androidapp/app/app.iml" />
+      <module fileurl="file://D:\Programs\PROJEKT_CHMURA\androidapp\app\app.iml" filepath="D:\Programs\PROJEKT_CHMURA\androidapp\app\app.iml" />
+      <module fileurl="file://D:\GOOD\PROJEKT_CHMURA\androidapp\app\app.iml" filepath="D:\GOOD\PROJEKT_CHMURA\androidapp\app\app.iml" />
     </modules>
   </component>
 </project>

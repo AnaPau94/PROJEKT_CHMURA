@@ -1,13 +1,16 @@
-package booksmanagement.androidapp;
+package booksmanagement.androidapp.activity;
 
+import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class LoginActivity extends AppCompatActivity {
+import booksmanagement.androidapp.R;
+
+public class MainActivity extends Activity  {
 
     EditText editTextLoginLogin;
     EditText editTextLoginPassword;
@@ -17,7 +20,10 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_main);
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
 
         initializeAllElements();
     }
@@ -29,7 +35,7 @@ public class LoginActivity extends AppCompatActivity {
         buttonLoginCreateAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);
+                Intent intent = new Intent(MainActivity.this, RegistrationActivity.class);
                 startActivity(intent);
             }
         });
@@ -43,6 +49,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void signInMethod(String login, String password) {
-
+        //TODO metoda logowania, zrobić
+        Intent intent = new Intent(MainActivity.this, WelcomeActivity.class);
+        startActivity(intent);
     }
 }

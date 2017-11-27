@@ -1,4 +1,4 @@
-package booksmanagement.androidapp;
+package booksmanagement.androidapp.activity;
 
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -12,6 +12,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
+import booksmanagement.androidapp.R;
 import booksmanagement.androidapp.model.Book;
 
 public class AddBookActivity extends AppCompatActivity {
