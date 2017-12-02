@@ -22,7 +22,9 @@ public class AddBookMenuActivity extends AppCompatActivity {
     }
 
     public void openSearchByBarCodeActivity(View view) {
-        //TODO dokończyć
+        Intent myIntent = new Intent(AddBookMenuActivity.this,
+                BarcodeActivity.class);
+        startActivity(myIntent);
     }
 
     public void openAddBookActivity(View view) {
