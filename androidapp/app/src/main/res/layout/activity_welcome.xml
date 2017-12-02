@@ -5,6 +5,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="booksmanagement.androidapp.activity.WelcomeActivity">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="368dp"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteY="8dp"
+        tools:layout_editor_absoluteX="8dp">
+
+        <Button
+            android:text="Log out"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/logoutButton"
+            android:onClick="logout"
+            android:width="50dp"/>
+
+        <Button
+            android:text="Exit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="closeApp"
+            android:id="@+id/exitButton"
+            android:width="50dp"/>
+    </LinearLayout>
+
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
@@ -29,6 +54,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4"
-        tools:layout_editor_absoluteX="148dp"
-        tools:layout_editor_absoluteY="279dp" />
+        tools:layout_editor_absoluteX="148dp" />
 </android.support.constraint.ConstraintLayout>

@@ -7,6 +7,8 @@ public class Book {
     private String isbn;
     private String publication;
     private String printDate;
+    private BookType type;
+    private Long userId;
 
     public Long getBookId() {
         return bookId;
@@ -54,5 +56,21 @@ public class Book {
 
     public void setPrintDate(String printDate) {
         this.printDate = printDate;
+    }
+
+    public BookType getType() {
+        return type;
+    }
+
+    public void setType(BookType type) {
+        this.type = type;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }

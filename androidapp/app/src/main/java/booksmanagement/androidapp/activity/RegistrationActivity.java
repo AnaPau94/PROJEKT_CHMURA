@@ -10,20 +10,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import org.json.JSONObject;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.http.client.ClientHttpResponse;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.RestTemplate;
-
-import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -38,14 +24,10 @@ public class RegistrationActivity extends AppCompatActivity {
     EditText editTextRegistrationPassword2;
     Button buttonRegistrationCreateAcoount;
 
-//    private final static String url = "http://localhost:8080/api/user/create";
-//    private final static String url = "https://chmuraksiazki.herokuapp.com/api/user/create";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
-
         initializeAllElements();
     }
 
@@ -86,61 +68,6 @@ public class RegistrationActivity extends AppCompatActivity {
                 Toast.makeText(this, getResources().getString(R.string.undefined_error), Toast.LENGTH_SHORT).show();
                 break;
         }
-    }
-
-    private void getToken(User user) {
-        //TODO zrobić pobieranie, zapisywanie tokena
-        String url = getResources().getString(R.string.url_get_token_part_1) + user.getUsername() + getResources().getString(R.string.url_get_token_part_2) + user.getPassword();
-
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Type", "application/json");
-        headers.add("Authorization", "user: my-trusted-client password: secret");
-
-        RestTemplate restTemplate = new RestTemplate();
-        HttpEntity<String> request = new HttpEntity<>("params", headers);
-        ResponseEntity<String> response = restTemplate
-                .exchange(url, HttpMethod.POST, request, String.class);
-
-        String string = response.getBody();
-
-        /*RestTemplate restTemplate = new RestTemplate();
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Type", "application/json");
-        headers.add("Authorization", "user: my-trusted-client password: secret");
-        HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
-
-        ResponseEntity<String> result = restTemplate.exchange(url, HttpMethod.POST, entity, String.class);
-
-        System.out.println(result);*/
-        /*try {
-            URL url = new URL(getResources().getString(R.string.url_get_token_part_1) + user.getUsername() + getResources().getString(R.string.url_get_token_part_2) + user.getPassword());
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("POST");
-            conn.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
-            conn.setRequestProperty("Authorization", "user: my-trusted-client password: secret");
-            conn.setRequestProperty("Accept", "application/json");
-            conn.setDoOutput(true);
-            conn.setDoInput(true);
-
-            JSONObject jsonParam;
-
-            ClientHttpResponse =
-            DataInputStream is = new DataInputStream(conn.getInputStream());
-            //os.writeBytes(URLEncoder.encode(jsonParam.toString(), "UTF-8"));
-            jsonParam = new JSONObject(is.readUTF());
-            Log.i("JSON", jsonParam.toString());
-
-            is.close();
-
-            Log.i("STATUS", String.valueOf(conn.getResponseCode()));
-            Log.i("MSG" , conn.getResponseMessage());
-
-            conn.disconnect();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
     }
 
     private int postCreateUser(final User user) {
