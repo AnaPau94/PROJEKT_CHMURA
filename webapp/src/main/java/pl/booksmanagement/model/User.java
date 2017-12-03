@@ -5,7 +5,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -30,6 +29,13 @@ public class User implements UserDetails {
 
     @Column(name = "enabled", nullable = false)
     private boolean enabled;
+
+    @OneToMany(
+            mappedBy = "user",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<UserBook> books = new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -70,29 +76,4 @@ public class User implements UserDetails {
         return username;
     }
 
-
-    /*@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Size(max = 64)
-    private String username;
-    private String password;
-    private String email;
-
-    @OneToMany
-    @JoinTable(
-            name="user_owned_books",
-            joinColumns = @JoinColumn( name="id"),
-            inverseJoinColumns = @JoinColumn( name="book_id")
-    )
-    private List<Book> ownedBooks = new ArrayList<>();
-
-
-    @OneToMany
-    @JoinTable(
-            name="user_books_to_buy",
-            joinColumns = @JoinColumn( name="id"),
-            inverseJoinColumns = @JoinColumn( name="book_id")
-    )
-    private List<Book> booksToBuy = new ArrayList<>();*/
 }

@@ -1,19 +1,19 @@
 package pl.booksmanagement.service;
 
-import pl.booksmanagement.exception.UserNotFoundException;
-import pl.booksmanagement.model.Book;
+import pl.booksmanagement.model.rest.BookModel;
 
 import java.util.List;
 
 public interface BookService {
-    Book findByBookId(Long id);
-    Book findByIsbn(String isbn);
-    Book findByBookAuthor(String author);
-    List<Book> findAll();
-    List<Book> findAllUserBooks(Long userId);
-    Book save(Book book);
-    void addOwnedBookForUser(Long userId, Book book);
-    void addBuyBookForUser(Long userId, Book book);
-    List<Book> getOwnedUserBooks(Long userId);
-    List<Book> getBuyUserBooks(Long userId);
+    BookModel findByBookId(Long id);
+    BookModel findByIsbn(String isbn);
+    BookModel findByBookAuthor(String author);
+    List<BookModel> findAll();
+    List<BookModel> findAllUserBooks(Long userId);
+    BookModel save(BookModel book);
+    BookModel addOwnedBookForUser(Long userId, BookModel book);
+    BookModel addBuyBookForUser(Long userId, BookModel book);
+    List<BookModel> getOwnedUserBooks(Long userId);
+    List<BookModel> getBuyUserBooks(Long userId);
+    void create(Long userId, BookModel book);
 }

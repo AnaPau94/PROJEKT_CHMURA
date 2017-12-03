@@ -1,16 +1,20 @@
 package pl.booksmanagement.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "books")
 @Data
-@JsonIgnoreProperties("userId")
+@AllArgsConstructor
+@NoArgsConstructor
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,8 +32,12 @@ public class Book {
     private String publication;
     private String printDate;
 
-    @Enumerated(EnumType.STRING)
-    private BookType type;
+    @OneToMany(
+            mappedBy = "book",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<UserBook> users = new ArrayList<>();
 
     private Long userId;
 }

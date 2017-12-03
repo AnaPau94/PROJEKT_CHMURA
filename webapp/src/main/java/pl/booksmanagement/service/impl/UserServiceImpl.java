@@ -10,10 +10,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.stereotype.Service;
 import pl.booksmanagement.model.User;
+import pl.booksmanagement.model.UserBook;
+import pl.booksmanagement.model.rest.BookModel;
 import pl.booksmanagement.repository.UserRepository;
 import pl.booksmanagement.service.UserService;
+import pl.booksmanagement.util.OrikaMapper;
 
 import java.security.Principal;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service("userDetailsService")
 @Slf4j
@@ -23,10 +28,22 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private UserRepository userRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private OrikaMapper orikaMapper;
 
 
     final String lexicon = "ABCDEFGHIJKLMNOPQRSTUVWXYZ12345674890";
     final java.util.Random rand = new java.util.Random();
+
+    public List<BookModel> findAllUserBooks(Long userId) {
+        List<UserBook> userBooksByUserId = userRepository.findUserBooksByUserId(userId);
+
+        return userBooksByUserId.stream().map(userBook -> orikaMapper.map(userBook, BookModel.class)).collect(Collectors.toList());
+    }
+
+    public List<UserBook> findAllUserBookEntities(Long userId) {
+        return userRepository.findUserBooksByUserId(userId);
+    }
 
     @Override
     public boolean isUserLoginAvailable(String login) {

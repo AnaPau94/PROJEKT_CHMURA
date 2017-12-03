@@ -1,20 +1,21 @@
 package pl.booksmanagement.serviceImpl;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import pl.booksmanagement.exception.UserNotFoundException;
 import pl.booksmanagement.model.Book;
 import pl.booksmanagement.model.BookType;
 import pl.booksmanagement.model.User;
+import pl.booksmanagement.model.UserBook;
+import pl.booksmanagement.model.rest.BookModel;
 import pl.booksmanagement.repository.BookRepository;
 import pl.booksmanagement.service.BookService;
 import pl.booksmanagement.service.UserService;
+import pl.booksmanagement.util.OrikaMapper;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -22,68 +23,103 @@ import java.util.List;
 public class BookServiceImpl implements BookService {
 
     @Autowired
-    BookRepository repository;
-
+    private BookRepository repository;
     @Autowired
     private UserService userService;
+    @Autowired
+    private OrikaMapper orikaMapper;
 
-    public Book findByBookId(Long id) {
-        return repository.findByBookId(id);
-    }
-    public Book findByIsbn(String isbn) {
-        return repository.findByIsbn(isbn);
-    }
-    public Book findByBookAuthor(String author) {
-        return repository.findByBookAuthor(author);
-    }
 
-    public List<Book> findAll() {
-        return repository.findAll();
+    public BookModel findByBookId(Long id) {
+//        return repository.findByBookId(id);
+        return null;
     }
-
-    @Override
-    public List<Book> findAllUserBooks(Long userId) {
-        return repository.findByUserId(userId);
+    public BookModel findByIsbn(String isbn) {
+//        return repository.findByIsbn(isbn);
+        return null;
+    }
+    public BookModel findByBookAuthor(String author) {
+        return null;
+//        return repository.findByBookAuthor(author);
     }
 
-    public Book save(Book book) {
-        return repository.save(book);
+    public List<BookModel> findAll() {
+        return null;
+//        return repository.findAll();
     }
 
     @Override
-    public void addOwnedBookForUser(Long userId, Book book) {
-        if (book.getBookId() != null) {
-           log.warn("add already exists book");
-           return;
+    public List<BookModel> findAllUserBooks(Long userId) {
+        return userService.findAllUserBooks(userId);
+    }
+
+    public BookModel save(BookModel book) {
+        Book savedBook = repository.save(orikaMapper.map(book, Book.class));
+        return orikaMapper.map(savedBook, BookModel.class);
+    }
+
+    public void create(Long userId, BookModel book) {
+
+        Book bookEntity = orikaMapper.map(book, Book.class);
+
+        User user = userService.findUserById(userId);
+        UserBook userBook = new UserBook(user, bookEntity, book.getType());
+        bookEntity.getUsers().add(userBook);
+        repository.save(bookEntity);
+        userService.saveUser(user);
+    }
+
+    @Override
+    public BookModel addOwnedBookForUser(Long userId, BookModel book) {
+        return orikaMapper.map(addBookForUserByType(userId, book, BookType.OWNED), BookModel.class);
+    }
+
+    @Override
+    public BookModel addBuyBookForUser(Long userId, BookModel book) {
+        return orikaMapper.map(addBookForUserByType(userId, book, BookType.BUY), BookModel.class);
+    }
+
+    @Override
+    public List<BookModel> getOwnedUserBooks(Long userId) {
+        List<UserBook> userBooks = userService.findAllUserBookEntities(userId);
+        return userBooks.stream().filter(userBook -> BookType.OWNED.equals(userBook.getType())).map(userBook -> orikaMapper.map(userBook, BookModel.class)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<BookModel> getBuyUserBooks(Long userId) {
+        List<UserBook> userBooks = userService.findAllUserBookEntities(userId);
+        return userBooks.stream().filter(userBook -> BookType.BUY.equals(userBook.getType())).map(userBook -> orikaMapper.map(userBook, BookModel.class)).collect(Collectors.toList());
+    }
+
+    public UserBook addBookForUserByType(Long userId, BookModel book, BookType bookType) {
+        User user = userService.findUserById(userId);
+
+
+        Book bookByIsbn = repository.findByIsbn(book.getIsbn());
+        Book bookEntity = bookByIsbn != null ? bookByIsbn : orikaMapper.map(book, Book.class);
+
+        if (book.getBookId() != null || bookByIsbn != null) {
+            UserBook userBook = user.getBooks().stream().filter(ub -> ub.getBook().getBookId().equals(bookEntity.getBookId())).findFirst().orElse(null);
+
+            if (userBook != null && userBook.getType().equals(book.getType())) {
+                log.info("Book {} already exists on user {}", book.getBookId(), userId);
+                return userBook;
+            } else if (userBook != null) {
+                userBook.setType(bookType);
+                userService.saveUser(user);
+                log.info("Book {} updated for user {}", book, userId);
+                return userBook;
+            }
         }
 
-        book.setType(BookType.OWNED);
-        book.setUserId(userId);
-        repository.save(book);
+
+        UserBook userBook = new UserBook(user, bookEntity, bookType);
+        bookEntity.getUsers().add(userBook);
+        repository.save(bookEntity);
+        userService.saveUser(user);
+        log.info("Book {} with status {} added to user {}", book, bookType, userId);
+
+        return userBook;
 
     }
-
-    @Override
-    public void addBuyBookForUser(Long userId, Book book) {
-        if (book.getBookId() != null) {
-            log.warn("add already exists book");
-            return;
-        }
-
-        book.setType(BookType.BUY);
-        book.setUserId(userId);
-        repository.save(book);
-    }
-
-    @Override
-    public List<Book> getOwnedUserBooks(Long userId) {
-        return repository.findByUserIdAndType(userId, BookType.OWNED);
-    }
-
-    @Override
-    public List<Book> getBuyUserBooks(Long userId) {
-        return repository.findByUserIdAndType(userId, BookType.BUY);
-    }
-
-
 }
