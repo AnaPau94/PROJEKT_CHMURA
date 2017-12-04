@@ -17,7 +17,7 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.web.client.RestTemplate;
 
 import booksmanagement.androidapp.R;
-import booksmanagement.androidapp.model.Book;
+import booksmanagement.androidapp.model.BookModel;
 
 public class AddBookActivity extends AppCompatActivity {
     private final String addOwnedBookURL = "https://chmuraksiazki.herokuapp.com/api/book/add/owned";
@@ -67,7 +67,7 @@ public class AddBookActivity extends AppCompatActivity {
 
     public void addBook(View view) {
         if(isValid()) {
-            Book book = new Book();
+            BookModel book = new BookModel();
             book.setBookAuthor(author.getText().toString());
             book.setBookTitle(title.getText().toString());
             book.setIsbn(isbn.getText().toString());
@@ -77,9 +77,9 @@ public class AddBookActivity extends AppCompatActivity {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             headers.set("Authorization","Bearer " + preferences.getString("token",""));
-            HttpEntity<Book> request = new HttpEntity<>(book, headers);
+            HttpEntity<BookModel> request = new HttpEntity<>(book, headers);
 
-            restTemplate.postForObject(view.getId() == R.id.addOwnedBook ? addOwnedBookURL : addBookToBuyURL, request, Book.class);
+            restTemplate.postForObject(view.getId() == R.id.addOwnedBook ? addOwnedBookURL : addBookToBuyURL, request, BookModel.class);
             Toast.makeText(getApplicationContext(), "Book added", Toast.LENGTH_SHORT).show();
             clearAllFields();
         }
