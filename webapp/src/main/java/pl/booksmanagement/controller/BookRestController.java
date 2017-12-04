@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.booksmanagement.exception.UserNotFoundException;
 import pl.booksmanagement.model.Book;
+import pl.booksmanagement.model.BookType;
 import pl.booksmanagement.model.rest.BookModel;
 import pl.booksmanagement.service.BookService;
 import pl.booksmanagement.service.UserService;
@@ -58,6 +59,26 @@ public class BookRestController {
         List<BookModel> result = new ArrayList<>();
         result.addAll(bookService.getBuyUserBooks(userService.getAuthUserId(principal)));
         return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/all/toRead", method = RequestMethod.GET)
+    public ResponseEntity<?> getAllToReadBooks (Principal principal) {
+        List<BookModel> result = new ArrayList<>();
+        result.addAll(bookService.getAllBooksByType(userService.getAuthUserId(principal), BookType.TO_READ));
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/all/alreadyRead", method = RequestMethod.GET)
+    public ResponseEntity<?> getAllAlreadyReadBooks (Principal principal) {
+        List<BookModel> result = new ArrayList<>();
+        result.addAll(bookService.getAllBooksByType(userService.getAuthUserId(principal), BookType.ALREADY_READ));
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/changeStatus", method = RequestMethod.POST)
+    public ResponseEntity<?> changeBookStatus(@RequestBody BookModel book, Principal principal) {
+        boolean result = bookService.changeUserBookType(userService.getAuthUserId(principal), book);
+        return new ResponseEntity<>(result ? "changed" : "failed", result ? HttpStatus.OK : HttpStatus.CONFLICT);
     }
 
 

@@ -1,5 +1,5 @@
 package pl.booksmanagement.model;
 
 public enum BookType {
-    OWNED, BUY, ALREADY_READ;
+    OWNED, BUY, TO_READ, ALREADY_READ;
 }

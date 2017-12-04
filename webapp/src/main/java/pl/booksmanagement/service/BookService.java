@@ -1,5 +1,6 @@
 package pl.booksmanagement.service;
 
+import pl.booksmanagement.model.BookType;
 import pl.booksmanagement.model.rest.BookModel;
 
 import java.util.List;
@@ -15,5 +16,7 @@ public interface BookService {
     BookModel addBuyBookForUser(Long userId, BookModel book);
     List<BookModel> getOwnedUserBooks(Long userId);
     List<BookModel> getBuyUserBooks(Long userId);
+    List<BookModel> getAllBooksByType(Long userId, BookType bookType);
+    boolean changeUserBookType(Long userId, BookModel bookModel);
     void create(Long userId, BookModel book);
 }

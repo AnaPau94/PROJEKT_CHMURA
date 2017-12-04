@@ -34,10 +34,12 @@ public class BookServiceImpl implements BookService {
 //        return repository.findByBookId(id);
         return null;
     }
+
     public BookModel findByIsbn(String isbn) {
 //        return repository.findByIsbn(isbn);
         return null;
     }
+
     public BookModel findByBookAuthor(String author) {
         return null;
 //        return repository.findByBookAuthor(author);
@@ -89,6 +91,34 @@ public class BookServiceImpl implements BookService {
     public List<BookModel> getBuyUserBooks(Long userId) {
         List<UserBook> userBooks = userService.findAllUserBookEntities(userId);
         return userBooks.stream().filter(userBook -> BookType.BUY.equals(userBook.getType())).map(userBook -> orikaMapper.map(userBook, BookModel.class)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<BookModel> getAllBooksByType(Long userId, BookType bookType) {
+        List<UserBook> userBooks = userService.findAllUserBookEntities(userId);
+        return userBooks.stream().filter(userBook -> bookType.equals(userBook.getType())).map(userBook -> orikaMapper.map(userBook, BookModel.class)).collect(Collectors.toList());
+    }
+
+    @Override
+    public boolean changeUserBookType(Long userId, BookModel bookModel) {
+
+        if (bookModel.getBookId() == null || bookModel.getType() == null) {
+
+            return false;
+        }
+
+        User user = userService.findUserById(userId);
+
+        UserBook userBook = user.getBooks().stream().filter(ub -> ub.getBook().getBookId().equals(bookModel.getBookId())).findFirst().orElse(null);
+        if (userBook == null) {
+            log.warn("There is no book with id {} on user {}", bookModel.getBookId(), userId);
+            return false;
+        }
+
+        userBook.setType(bookModel.getType());
+        userService.saveUser(user);
+
+        return true;
     }
 
     public UserBook addBookForUserByType(Long userId, BookModel book, BookType bookType) {
