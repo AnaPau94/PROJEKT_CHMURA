@@ -35,4 +35,14 @@
         android:text="Buy book"
         app:layout_constraintTop_toBottomOf="@+id/button_show_books_to_buy"
         tools:layout_editor_absoluteX="0dp" />
+
+    <Button
+        android:id="@+id/button_shop_choosing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:onClick="openShopChooseActivity"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="148dp" />
 </android.support.constraint.ConstraintLayout>

@@ -35,4 +35,11 @@ public class MenuActivity extends AppCompatActivity {
                 BuyBookUpperPriceRangeActivity.class);
         startActivity(myIntent);
     }
+
+    public void openShopChooseActivity(View view) {
+        Intent myIntent = new Intent(MenuActivity.this,
+                ShopSelectActivity.class);
+        startActivity(myIntent);
+
+    }
 }
