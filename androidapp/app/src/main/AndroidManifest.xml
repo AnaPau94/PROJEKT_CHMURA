@@ -29,7 +29,8 @@
         <activity
             android:name=".activity.BooksTabActivity"
             android:label="@string/title_activity_books_tab"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activity.ShopSelectActivity"></activity>
     </application>
 
 </manifest>
