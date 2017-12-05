@@ -11,7 +11,7 @@
         android:text="ISBN"
         android:ems="10"
         android:id="@+id/resultISBN"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="25dp"
         android:clickable="false"
         android:enabled="false" />
 
@@ -21,15 +21,33 @@
         android:layout_height="wrap_content"
         android:text="Search book"
         android:textSize="24sp"
-        android:layout_marginTop="50dp" />
+        android:layout_marginTop="20dp" />
 
     <Button
         android:id="@+id/button_find_by_isbn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
         android:onClick="scanBarcode"
         android:text="Scan"
-        android:textSize="24sp"
-        android:layout_marginTop="100dp"/>
+        android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/button_find_by_barcode_add_to_owned"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:onClick="onButtonAddToMyLibraryClicked"
+        android:text="Add to my library"
+        android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/button_find_by_barcode_add_to_buy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:onClick="onButtonAddToBuyClicked"
+        android:text="Add to buy"
+        android:textSize="24sp" />
 
 </LinearLayout>

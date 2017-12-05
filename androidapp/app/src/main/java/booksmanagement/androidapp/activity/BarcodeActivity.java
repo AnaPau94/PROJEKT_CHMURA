@@ -1,7 +1,9 @@
 package booksmanagement.androidapp.activity;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -16,11 +18,17 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 import booksmanagement.androidapp.R;
+import booksmanagement.androidapp.model.BookModel;
+import booksmanagement.androidapp.util.ISBNFinderUtil;
+import booksmanagement.androidapp.util.PostBook;
 
 public class BarcodeActivity extends AppCompatActivity {
     private EditText resultISBN;
-    private Button searchBook, scanBarcode;
+    private Button searchBook, scanBarcode, addBookToMyLibrary, addBookToBuy;
     private static final int MY_CAMERA_REQUEST_CODE = 100;
+    Long isbnNumber;
+    BookModel book;
+    SharedPreferences preferences;
 
     IntentResult scanningResult;
 
@@ -31,7 +39,10 @@ public class BarcodeActivity extends AppCompatActivity {
         resultISBN = (EditText) findViewById(R.id.resultISBN);
         searchBook  = (Button) findViewById(R.id.scan_by_isbn);
         scanBarcode  = (Button) findViewById(R.id.button_find_by_isbn);
+        addBookToBuy = (Button) findViewById(R.id.button_find_by_barcode_add_to_buy);
+        addBookToMyLibrary = (Button) findViewById(R.id.button_find_by_barcode_add_to_owned);
         checkCameraPermission();
+        preferences  = this.getSharedPreferences("AppPreferences", Context.MODE_PRIVATE);
     }
 
     public void scanBarcode(View view) {
@@ -70,5 +81,61 @@ public class BarcodeActivity extends AppCompatActivity {
                 return;
             }
         }
+    }
+
+    public void onButtonAddToBuyClicked(View view) {
+        routineAction();
+        PostBook postBookObject = new PostBook(book, preferences.getString("token", ""), false);
+        postBookObject.postBook();
+    }
+
+    public void onButtonAddToMyLibraryClicked(View view) {
+        routineAction();
+        PostBook postBookObject = new PostBook(book, preferences.getString("token", ""), true);
+        postBookObject.postBook();
+    }
+
+    private void routineAction() {
+        resultISBN = (EditText) findViewById(R.id.resultISBN);
+        if (checkInputData()) {
+            isbnSearchOnWebsite();
+        } else {
+            showUserInputErrorInfo();
+        }
+    }
+
+    private void isbnSearchOnWebsite() {
+        ISBNFinderUtil finder = new ISBNFinderUtil(isbnNumber);
+        if (finder.find()) {
+            book = finder.getBook();
+        } else {
+            showISBNFinderError();
+        }
+    }
+
+    private void showISBNFinderError() {
+        Toast.makeText(this, getText(R.string.isbn_find_error_info), Toast.LENGTH_LONG).show();
+    }
+
+    private void showUserInputErrorInfo() {
+        Toast.makeText(this, getText(R.string.isbn_error_info), Toast.LENGTH_LONG).show();
+    }
+
+    private boolean checkInputData() {
+        boolean out = false;
+        String inputData = resultISBN.getText().toString();
+
+        if (inputData.length() > 1) {
+            isbnNumber = Long.decode(inputData);
+
+            if (isbnNumber.compareTo(999999999L) == 1 && isbnNumber.compareTo(10000000000L) == -1) {
+                out = true;
+            } else {
+                if (isbnNumber.compareTo(999999999999L) == 1 && isbnNumber.compareTo(10000000000000L) == -1) {
+                    out = true;
+                }
+            }
+        }
+        return out;
     }
 }
