@@ -87,12 +87,14 @@ public class BarcodeActivity extends AppCompatActivity {
         routineAction();
         PostBook postBookObject = new PostBook(book, preferences.getString("token", ""), false);
         postBookObject.postBook();
+        Toast.makeText(getApplicationContext(), "Book to buy added", Toast.LENGTH_SHORT).show();
     }
 
     public void onButtonAddToMyLibraryClicked(View view) {
         routineAction();
         PostBook postBookObject = new PostBook(book, preferences.getString("token", ""), true);
         postBookObject.postBook();
+        Toast.makeText(getApplicationContext(), "Book added to library", Toast.LENGTH_SHORT).show();
     }
 
     private void routineAction() {

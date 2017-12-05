@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import org.springframework.http.HttpEntity;
@@ -26,37 +27,29 @@ import booksmanagement.androidapp.adapter.ToBuyAdapter;
 import booksmanagement.androidapp.model.BookModel;
 import booksmanagement.androidapp.model.BookToBuy;
 
-
-public class BooksToBuyFragment extends Fragment {
-    private final String booksToBuyUrl = "https://chmuraksiazki.herokuapp.com/api/book/all/buy";
+public class BooksToReadFragment extends Fragment {
+    private final String booksToReadUrl = "https://chmuraksiazki.herokuapp.com/api/book/all/toRead";
     private static final String ARG_SECTION_NUMBER = "section_number";
     private SharedPreferences preferences;
     private RestTemplate restTemplate;
-    private List<BookToBuy> booksToBuy;
-    private ListView listView;
 
-    public BooksToBuyFragment() {
+    public BooksToReadFragment() {
+        // Required empty public constructor
     }
 
-    /**
-     * Returns a new instance of this fragment for the given section
-     * number.
-     */
-    public static BooksToBuyFragment newInstance(int sectionNumber) {
-        BooksToBuyFragment fragment = new BooksToBuyFragment();
+    public static BooksToReadFragment newInstance(int sectionNumber) {
+        BooksToReadFragment fragment = new BooksToReadFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
         fragment.setArguments(args);
-
         return fragment;
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_simple_book, container, false);
         preferences = getActivity().getSharedPreferences("AppPreferences", Context.MODE_PRIVATE);
-        View rootView = inflater.inflate(R.layout.fragment_books, container, false);
 
         restTemplate = new RestTemplate();
         restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
@@ -66,36 +59,20 @@ public class BooksToBuyFragment extends Fragment {
         HttpEntity<HttpHeaders> request = new HttpEntity<>(headers);
 
         BookModel[] allBooks;
-        ResponseEntity<BookModel[]> response = restTemplate.exchange(booksToBuyUrl, HttpMethod.GET,request, BookModel[].class);
+        ResponseEntity<BookModel[]> response = restTemplate.exchange(booksToReadUrl, HttpMethod.GET,request, BookModel[].class);
         allBooks = response.getBody();
-        //ResponseEntity<Object[]> response = restTemplate.exchange(booksToBuyUrl, HttpMethod.GET,request,Object[].class );
-        //Object[] objects = response.getBody();
-        //booksToBuy = new ArrayList<>();
-        //for (int i = 0; i<objects.length; i++){
-         //   booksToBuy.add((BookToBuy)objects[i]);
-        //}
 
 
-        //TODO poniżej ksiązki są dodawane do listy
-
-        listView = (ListView) rootView.findViewById(R.id.list_view);
-        List<BookToBuy> booksToBuy = new ArrayList<>();
-        if (allBooks.length>0);
-        {
-            ToBuyAdapter listViewAdapter = new ToBuyAdapter(getActivity(), R.layout.list_item_to_buy, booksToBuy);
-            for (int j = 0; j < 2; j++) {
-                for (int i = 0; i < allBooks.length; i++) {
-                    listViewAdapter.add(new BookToBuy(allBooks[i].getBookTitle()));
-                }
+        ListView listView = (ListView) rootView.findViewById(R.id.list_view_simple_book);
+        ArrayAdapter<String> listViewAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1);
+        for (int j = 0; j < 2; j++) {
+            for (int i = 0; i < allBooks.length; i++) {
+                listViewAdapter.add((allBooks[i].getBookTitle()));
             }
-            listView.setAdapter(listViewAdapter);
         }
-        /////////////////////////////////////////
-        // koniec dodawania
 
+
+        listView.setAdapter(listViewAdapter);
         return rootView;
     }
 }
-//for (int iter = 0; iter < allBooks.length; iter++){
-//  booksToBuy.add();
-//}

@@ -20,8 +20,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import booksmanagement.androidapp.R;
+import booksmanagement.androidapp.fragment.AllBooksFragment;
 import booksmanagement.androidapp.fragment.BooksToBuyFragment;
-import booksmanagement.androidapp.fragment.SimpleBookFragment;
+import booksmanagement.androidapp.fragment.BooksToReadFragment;
+import booksmanagement.androidapp.fragment.BooksReadFragment;
 
 public class BooksTabActivity extends AppCompatActivity {
 
@@ -113,16 +115,16 @@ public class BooksTabActivity extends AppCompatActivity {
 
             switch (position) {
                 case 0:
-                    out = BooksToBuyFragment.newInstance(position + 1);
+                    out = BooksToReadFragment.newInstance(position + 1);
                     break;
                 case 1:
-                    out = SimpleBookFragment.newInstance(position + 1);
+                    out = BooksToReadFragment.newInstance(position + 1);
                     break;
                 case 2:
-                    out = SimpleBookFragment.newInstance(position + 1);
+                    out = BooksReadFragment.newInstance(position + 1);
                     break;
                 case 3:
-                    out = SimpleBookFragment.newInstance(position + 1);
+                    out = AllBooksFragment.newInstance(position + 1);
                     break;
             }
             return out;

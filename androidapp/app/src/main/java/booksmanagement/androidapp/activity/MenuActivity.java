@@ -30,18 +30,6 @@ public class MenuActivity extends AppCompatActivity {
         startActivity(myIntent);
     }
 
-    public void showBooksToRead(View view) {
-        //TODO dokończyć
-    }
-
-    public void showReadBooks(View view) {
-        //TODO dokończyć
-    }
-
-    public void showAllMyBooks(View view) {
-        //TODO dokończyć
-    }
-
     public void showBuyBookMenu(View view) {
         Intent myIntent = new Intent(MenuActivity.this,
                 BuyBookUpperPriceRangeActivity.class);
