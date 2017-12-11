@@ -18,4 +18,5 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="isbn_find_error_info">Can not find book with this ISBN</string>
+    <string name="matras_error">Sorry, Matras search is unavailable</string>
 </resources>
